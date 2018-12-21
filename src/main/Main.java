@@ -24,12 +24,27 @@ public class Main {
         System.out.print("\nEnter the unit of time: ");
         int time = sc.nextInt();
 
-        for (int i = 1; i < nbTools; i++) {
-            System.out.print("Enter the time you need to use the tool number " + i + ": ");
-            int nbm = sc.nextInt();
-            //allTools.add(new Tool(i, nbm));
+        for (int i = 1; i <= nbOperatons; i++) {
+            System.out.print("Enter the tool number you want to use: ");
+            int toolNumber = sc.nextInt();
+            System.out.print("Enter the time you need to use this tool number " + toolNumber + ": ");
+            int processTime = sc.nextInt();
+            allTools.add(new Tool(i, toolNumber, processTime));
         }
+
+        showTools(allTools);
 
         return(allTools);
     }
+
+    public static void showTools(ArrayList<Tool> allTools) {
+        System.out.println("\n Id  | Number | Time");
+
+        for(int i = 0; i < allTools.size(); i++) {
+            System.out.print("  "+allTools.get(i).getId());
+            System.out.print("  |    "+allTools.get(i).getToolNumber());
+            System.out.println("   |   "+allTools.get(i).getProcessTime());
+        }
+    }
+
 }
