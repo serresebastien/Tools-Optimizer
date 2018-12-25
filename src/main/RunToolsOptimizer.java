@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.lang.Math;
+import java.util.Random;
 
 public class RunToolsOptimizer {
 
@@ -19,6 +19,10 @@ public class RunToolsOptimizer {
 
         showPlaces(allPlaces);
 
+        allPlaces = setTools(allPlaces, nbTools);
+
+        showPlaces(allPlaces);
+
         System.out.print("\nEnter the unit of time: ");
         int time = sc.nextInt();
 
@@ -29,7 +33,6 @@ public class RunToolsOptimizer {
         showOperations(allOperations);
 
         System.out.println();
-
     }
 
     public static ArrayList<Place> setPlaces(int nbPlace) {
@@ -45,8 +48,11 @@ public class RunToolsOptimizer {
 
     public static ArrayList<Place> setTools(ArrayList<Place> allPlaces, int nbTool) {
 
+        ArrayList<Integer> ToolList = setToolList(nbTool);
 
-
+        for(int i = 0; i < ToolList.size(); i++) {
+            allPlaces.get(i).setTool(ToolList.get(i));
+        }
 
         return allPlaces;
     }
@@ -68,13 +74,6 @@ public class RunToolsOptimizer {
         return(allTools);
     }
 
-    public static void setTools() {
-
-
-
-
-    }
-
     public static void showOperations(ArrayList<Operation> allOperations) {
         System.out.println("\n Id  | Tool | Time");
 
@@ -90,16 +89,46 @@ public class RunToolsOptimizer {
 
         for(int i = 0; i < allPlaces.size(); i++) {
             System.out.print("  "+allPlaces.get(i).getId());
-            System.out.print("  | "+allPlaces.get(i).getTool());
-            System.out.println(" |  "+allPlaces.get(i).getNextId());
+            System.out.print("  |   "+allPlaces.get(i).getTool());
+            System.out.println("  |  "+allPlaces.get(i).getNextId());
         }
     }
 
     public static void startProcessing(ArrayList<Operation> allOperations, int time) {
 
+        for (int i = 0; i <= allOperations.size(); i++) {
 
 
 
+        }
+    }
 
+    public static ArrayList<Integer> setToolList(int nbTool) {
+
+        ArrayList<Integer> ToolList = new ArrayList<Integer>();
+
+        for (int i = 0; i < nbTool; i++) {
+            int myRand = (int)(Math.random() * nbTool + 1);;
+
+            if (isInside(ToolList, myRand) == true)
+                i--;
+            else ToolList.add(myRand);
+        }
+
+        System.out.println(ToolList);
+
+        return ToolList;
+    }
+
+    public static boolean isInside(ArrayList<Integer> ToolList, int target) {
+
+        boolean isInside = false;
+
+        for(int i = 0; i < ToolList.size(); i++) {
+            if (ToolList.get(i) == target)
+                isInside = true;
+        }
+
+        return isInside;
     }
 }
