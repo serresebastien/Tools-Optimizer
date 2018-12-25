@@ -16,17 +16,20 @@ public class RunToolsOptimizer {
 
         ArrayList<Place> allPlaces = createPlacesList(nbPlace);
 
-        ArrayList<Operation> allOperations = setOperations(nbOperation);
+        ArrayList<Operation> allOperations = createOperationsList(nbOperation);
+
+        showOperations(allOperations);
 
         for (int i = 1; i <= nbSimulation; i++) {
 
             allPlaces = insertTools(allPlaces, nbTool);
 
+            int time = startSimulation(allPlaces, allOperations, unitTime);
+
             showPlaces(allPlaces);
+            System.out.println("The total time for this simulation is: " + time);
 
         }
-
-        //showOperations(allOperations);
     }
 
     public static ArrayList<Place> createPlacesList(int nbPlace) {
@@ -80,16 +83,13 @@ public class RunToolsOptimizer {
         return isInside;
     }
 
-
-
-
-    public static ArrayList<Operation> setOperations(int nbOperation) {
+    public static ArrayList<Operation> createOperationsList(int nbOperation) {
 
         ArrayList<Operation> allTools = new ArrayList<Operation>();
         Scanner sc = new Scanner(System.in);
 
         for (int i = 1; i <= nbOperation; i++) {
-            System.out.println("\nOperation n°" + i);
+            System.out.println("\n--- Operation n°" + i + " ---");
             System.out.print("Tool: ");
             int toolNumber = sc.nextInt();
             System.out.print("Time: ");
@@ -101,7 +101,7 @@ public class RunToolsOptimizer {
     }
 
     public static void showOperations(ArrayList<Operation> allOperations) {
-        System.out.println("\n Id  | Tool | Time");
+        System.out.println("\n--- Operations List ---\n Id  | Tool | Time");
 
         for(int i = 0; i < allOperations.size(); i++) {
             System.out.print("  "+allOperations.get(i).getId());
@@ -111,7 +111,7 @@ public class RunToolsOptimizer {
     }
 
     public static void showPlaces(ArrayList<Place> allPlaces) {
-        System.out.println("\n Id  | Tool | nId");
+        System.out.println("\n--- Simulation Setup ---\n Id  | Tool | nId");
 
         for(int i = 0; i < allPlaces.size(); i++) {
             System.out.print("  "+allPlaces.get(i).getId());
@@ -120,12 +120,16 @@ public class RunToolsOptimizer {
         }
     }
 
-    public static void startProcessing(ArrayList<Operation> allOperations, int time) {
+    public static int startSimulation(ArrayList<Place> allPlaces, ArrayList<Operation> allOperations, int unitTime) {
+
+        int time = 0;
 
         for (int i = 0; i <= allOperations.size(); i++) {
 
 
 
         }
+
+        return time;
     }
 }
