@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b3c1237-7ed8-4d10-95a3-e15074fafd94" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/Setters.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ToolsOptimizer/main/Place.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ToolsOptimizer/main/Place.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ToolsOptimizer/main/RunToolsOptimizer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ToolsOptimizer/main/RunToolsOptimizer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ToolsOptimizer/main/Tool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ToolsOptimizer/main/Tool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Place.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Place.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/RunToolsOptimizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/RunToolsOptimizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Tool.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,20 +33,31 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/RunToolsOptimizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1005">
-              <caret line="116" column="37" lean-forward="true" selection-start-line="116" selection-start-column="37" selection-end-line="116" selection-end-column="37" />
+            <state relative-caret-position="143">
+              <caret line="14" column="51" lean-forward="true" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setPlaces#0;class#RunToolsOptimizer#0" />
                 <element signature="e#823#830#0" expanded="true" />
                 <element signature="method#setTools#0;class#RunToolsOptimizer#0" />
+                <element signature="method#setToolList#0;class#RunToolsOptimizer#0" />
+                <element signature="e#1354#1363#0" expanded="true" />
+                <element signature="method#isInside#0;class#RunToolsOptimizer#0" />
                 <element signature="method#setOperations#0;class#RunToolsOptimizer#0" />
                 <element signature="e#264#275#0" expanded="true" />
                 <element signature="method#showTools#0;class#RunToolsOptimizer#0" />
                 <element signature="method#showPlaces#0;class#RunToolsOptimizer#0" />
-                <element signature="e#3159#3168#0" expanded="true" />
-                <element signature="method#isInside#0;class#RunToolsOptimizer#0" />
+                <element signature="method#startProcessing#0;class#RunToolsOptimizer#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/Setters.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -92,6 +99,7 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/Tool.java" />
         <option value="$PROJECT_DIR$/src/main/Place.java" />
+        <option value="$PROJECT_DIR$/src/main/Setters.java" />
         <option value="$PROJECT_DIR$/src/main/RunToolsOptimizer.java" />
       </list>
     </option>
@@ -134,7 +142,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545748982001" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545773566345" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -184,12 +192,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545487663944</updated>
-      <workItem from="1545487665303" duration="12714000" />
+      <workItem from="1545487665303" duration="18336000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12714000" />
+    <option name="totallyTimeSpent" value="18336000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -200,7 +208,7 @@
       <window_info id="Capture Tool" />
       <window_info id="UI Designer" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21316166" />
+      <window_info content_ui="combo" id="Project" order="0" side_tool="true" visible="true" weight="0.21316166" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
@@ -210,7 +218,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25421688" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3060241" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -268,21 +276,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Setters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/RunToolsOptimizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="116" column="37" lean-forward="true" selection-start-line="116" selection-start-column="37" selection-end-line="116" selection-end-column="37" />
+        <state relative-caret-position="143">
+          <caret line="14" column="51" lean-forward="true" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setPlaces#0;class#RunToolsOptimizer#0" />
             <element signature="e#823#830#0" expanded="true" />
             <element signature="method#setTools#0;class#RunToolsOptimizer#0" />
+            <element signature="method#setToolList#0;class#RunToolsOptimizer#0" />
+            <element signature="e#1354#1363#0" expanded="true" />
+            <element signature="method#isInside#0;class#RunToolsOptimizer#0" />
             <element signature="method#setOperations#0;class#RunToolsOptimizer#0" />
             <element signature="e#264#275#0" expanded="true" />
             <element signature="method#showTools#0;class#RunToolsOptimizer#0" />
             <element signature="method#showPlaces#0;class#RunToolsOptimizer#0" />
-            <element signature="e#3159#3168#0" expanded="true" />
-            <element signature="method#isInside#0;class#RunToolsOptimizer#0" />
+            <element signature="method#startProcessing#0;class#RunToolsOptimizer#0" />
           </folding>
         </state>
       </provider>

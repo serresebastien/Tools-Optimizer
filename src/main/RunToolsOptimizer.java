@@ -8,34 +8,28 @@ public class RunToolsOptimizer {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        int nbPlace = Setters.setNbPlace();
+        int nbTool = Setters.setNbTool();
+        int unitTime = Setters.setUnitTime();
+        int nbOperation = Setters.setNbOperation();
+        int nbSimulation = Setters.setNbSimulation();
 
-        System.out.print("\nEnter the number of places: ");
-        int nbPlaces = sc.nextInt();
-        ArrayList<Place> allPlaces = setPlaces(nbPlaces);
+        ArrayList<Place> allPlaces = createPlacesList(nbPlace);
 
-        System.out.print("\nEnter the number of tools: ");
-        int nbTools = sc.nextInt();
+        ArrayList<Operation> allOperations = setOperations(nbOperation);
 
-        showPlaces(allPlaces);
+        for (int i = 1; i <= nbSimulation; i++) {
 
-        allPlaces = setTools(allPlaces, nbTools);
+            allPlaces = insertTools(allPlaces, nbTool);
 
-        showPlaces(allPlaces);
+            showPlaces(allPlaces);
 
-        System.out.print("\nEnter the unit of time: ");
-        int time = sc.nextInt();
+        }
 
-        System.out.print("\nEnter the number of operations: ");
-        int nbOperatons = sc.nextInt();
-        ArrayList<Operation> allOperations = setOperations(nbOperatons);
-
-        showOperations(allOperations);
-
-        System.out.println();
+        //showOperations(allOperations);
     }
 
-    public static ArrayList<Place> setPlaces(int nbPlace) {
+    public static ArrayList<Place> createPlacesList(int nbPlace) {
 
         ArrayList<Place> allPlaces = new ArrayList<Place>();
 
@@ -46,9 +40,9 @@ public class RunToolsOptimizer {
         return allPlaces;
     }
 
-    public static ArrayList<Place> setTools(ArrayList<Place> allPlaces, int nbTool) {
+    public static ArrayList<Place> insertTools(ArrayList<Place> allPlaces, int nbTool) {
 
-        ArrayList<Integer> ToolList = setToolList(nbTool);
+        ArrayList<Integer> ToolList = createToolsList(nbTool);
 
         for(int i = 0; i < ToolList.size(); i++) {
             allPlaces.get(i).setTool(ToolList.get(i));
@@ -56,6 +50,38 @@ public class RunToolsOptimizer {
 
         return allPlaces;
     }
+
+    public static ArrayList<Integer> createToolsList(int nbTool) {
+
+        ArrayList<Integer> ToolList = new ArrayList<Integer>();
+
+        for (int i = 0; i < nbTool; i++) {
+            int myRand = (int)(Math.random() * nbTool + 1);;
+
+            if (isInside(ToolList, myRand) == true)
+                i--;
+            else ToolList.add(myRand);
+        }
+
+        System.out.println(ToolList);
+
+        return ToolList;
+    }
+
+    public static boolean isInside(ArrayList<Integer> ToolList, int target) {
+
+        boolean isInside = false;
+
+        for(int i = 0; i < ToolList.size(); i++) {
+            if (ToolList.get(i) == target)
+                isInside = true;
+        }
+
+        return isInside;
+    }
+
+
+
 
     public static ArrayList<Operation> setOperations(int nbOperation) {
 
@@ -101,34 +127,5 @@ public class RunToolsOptimizer {
 
 
         }
-    }
-
-    public static ArrayList<Integer> setToolList(int nbTool) {
-
-        ArrayList<Integer> ToolList = new ArrayList<Integer>();
-
-        for (int i = 0; i < nbTool; i++) {
-            int myRand = (int)(Math.random() * nbTool + 1);;
-
-            if (isInside(ToolList, myRand) == true)
-                i--;
-            else ToolList.add(myRand);
-        }
-
-        System.out.println(ToolList);
-
-        return ToolList;
-    }
-
-    public static boolean isInside(ArrayList<Integer> ToolList, int target) {
-
-        boolean isInside = false;
-
-        for(int i = 0; i < ToolList.size(); i++) {
-            if (ToolList.get(i) == target)
-                isInside = true;
-        }
-
-        return isInside;
     }
 }
