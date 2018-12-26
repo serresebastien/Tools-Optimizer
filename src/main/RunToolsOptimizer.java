@@ -123,10 +123,35 @@ public class RunToolsOptimizer {
     public static int startSimulation(ArrayList<Place> allPlaces, ArrayList<Operation> allOperations, int unitTime) {
 
         int time = 0;
+        int position = 0;
+        int oldPosition = 0;
+        int target = allOperations.get(0).getToolNumber();
 
-        for (int i = 0; i <= allOperations.size(); i++) {
+        for (int j=0; j < allPlaces.size(); j++) {
 
+            if (allPlaces.get(j).getTool() == target) {
+                position = allPlaces.get(j).getId();
+                oldPosition = position;
+            }
+        }
 
+        for (int i = 0; i < allOperations.size(); i++) {
+
+            target = allOperations.get(i).getToolNumber();
+
+            for (int j=0; j < allPlaces.size(); j++) {
+                if (allPlaces.get(j).getTool() == target) position = allPlaces.get(j).getId();
+            }
+
+            if (Math.abs((oldPosition-position)*unitTime) > allOperations.get(i).getProcessTime()) {
+                time = time + (Math.abs((oldPosition-position)*unitTime));
+            } else {
+                time = time + allOperations.get(i).getProcessTime();
+            }
+
+            //System.out.println("\nboucle:"+i+"\nposition:"+position+"\noldPosition:"+oldPosition+"\ntarget:"+target+"\ntime:"+time);
+
+            oldPosition = position;
 
         }
 
