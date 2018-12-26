@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b3c1237-7ed8-4d10-95a3-e15074fafd94" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/RunToolsOptimizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/RunToolsOptimizer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -31,10 +32,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/RunToolsOptimizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="893">
-              <caret line="159" column="1" selection-start-line="159" selection-start-column="1" selection-end-line="159" selection-end-column="1" />
+            <state relative-caret-position="255">
+              <caret line="84" column="14" lean-forward="true" selection-start-line="84" selection-start-column="14" selection-end-line="84" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#main#0;class#RunToolsOptimizer#0" />
                 <element signature="method#setPlaces#0;class#RunToolsOptimizer#0" />
                 <element signature="e#823#830#0" expanded="true" />
                 <element signature="method#setTools#0;class#RunToolsOptimizer#0" />
@@ -45,6 +47,7 @@
                 <element signature="e#264#275#0" expanded="true" />
                 <element signature="method#showTools#0;class#RunToolsOptimizer#0" />
                 <element signature="method#showPlaces#0;class#RunToolsOptimizer#0" />
+                <element signature="method#startSimulation#0;class#RunToolsOptimizer#0" />
               </folding>
             </state>
           </provider>
@@ -139,7 +142,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545858520279" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545861155689" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -189,12 +192,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545487663944</updated>
-      <workItem from="1545487665303" duration="26714000" />
+      <workItem from="1545487665303" duration="29396000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26714000" />
+    <option name="totallyTimeSpent" value="29396000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -215,7 +218,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25060242" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30240965" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -282,10 +285,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/RunToolsOptimizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="159" column="1" selection-start-line="159" selection-start-column="1" selection-end-line="159" selection-end-column="1" />
+        <state relative-caret-position="255">
+          <caret line="84" column="14" lean-forward="true" selection-start-line="84" selection-start-column="14" selection-end-line="84" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#main#0;class#RunToolsOptimizer#0" />
             <element signature="method#setPlaces#0;class#RunToolsOptimizer#0" />
             <element signature="e#823#830#0" expanded="true" />
             <element signature="method#setTools#0;class#RunToolsOptimizer#0" />
@@ -296,6 +300,7 @@
             <element signature="e#264#275#0" expanded="true" />
             <element signature="method#showTools#0;class#RunToolsOptimizer#0" />
             <element signature="method#showPlaces#0;class#RunToolsOptimizer#0" />
+            <element signature="method#startSimulation#0;class#RunToolsOptimizer#0" />
           </folding>
         </state>
       </provider>

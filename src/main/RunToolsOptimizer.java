@@ -2,7 +2,6 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Random;
 
 public class RunToolsOptimizer {
 
@@ -66,7 +65,7 @@ public class RunToolsOptimizer {
             else ToolList.add(myRand);
         }
 
-        System.out.println(ToolList);
+        //System.out.println(ToolList);
 
         return ToolList;
     }
@@ -111,12 +110,11 @@ public class RunToolsOptimizer {
     }
 
     public static void showPlaces(ArrayList<Place> allPlaces) {
-        System.out.println("\n--- Simulation Setup ---\n Id  | Tool | nId");
+        System.out.println("\n--- Simulation Setup ---\n Id  | Tool");
 
         for(int i = 0; i < allPlaces.size(); i++) {
             System.out.print("  "+allPlaces.get(i).getId());
-            System.out.print("  |   "+allPlaces.get(i).getTool());
-            System.out.println("  |  "+allPlaces.get(i).getNextId());
+            System.out.println("  |   "+allPlaces.get(i).getTool());
         }
     }
 
@@ -143,13 +141,15 @@ public class RunToolsOptimizer {
                 if (allPlaces.get(j).getTool() == target) position = allPlaces.get(j).getId();
             }
 
-            if (Math.abs((oldPosition-position)*unitTime) > allOperations.get(i).getProcessTime()) {
+            if (i == 0 && allOperations.get(i).getProcessTime() <= unitTime) {
+                time = unitTime;
+            } else if (Math.abs((oldPosition-position)*unitTime) > allOperations.get(i).getProcessTime()) {
                 time = time + (Math.abs((oldPosition-position)*unitTime));
             } else {
                 time = time + allOperations.get(i).getProcessTime();
             }
 
-            //System.out.println("\nboucle:"+i+"\nposition:"+position+"\noldPosition:"+oldPosition+"\ntarget:"+target+"\ntime:"+time);
+            System.out.println("\nboucle:"+i+"\nposition:"+position+"\noldPosition:"+oldPosition+"\ntarget:"+target+"\ntime:"+time);
 
             oldPosition = position;
 
