@@ -152,7 +152,6 @@ public class RunToolsOptimizer {
             System.out.println("\nboucle:"+i+"\nposition:"+position+"\noldPosition:"+oldPosition+"\ntarget:"+target+"\ntime:"+time);
 
             oldPosition = position;
-
         }
 
         return time;
