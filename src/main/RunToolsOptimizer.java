@@ -1,37 +1,135 @@
 package main;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
 
 public class RunToolsOptimizer {
 
     public static void main(String[] args) {
 
-        int nbPlace = Setters.setNbPlace();
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("\nEnter the number of places you want to use: ");
+        int nbPlace = sc.nextInt();
+
+        int nbTool = 0, nbOperation = 0, unitTime = 0;
+        /*
         int nbTool = Setters.setNbTool();
-        int unitTime = Setters.setUnitTime();
+        int nbPlace = Setters.setNbPlace();
         int nbOperation = Setters.setNbOperation();
-        int nbSimulation = Setters.setNbSimulation();
+        int unitTime = Setters.setUnitTime();
+        */
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Dataset.txt"));
+            String line;
+            line = br.readLine();
+            nbTool = Integer.parseInt(line);
+            line = br.readLine();
+            //nbPlace = Integer.parseInt(line);
+            line = br.readLine();
+            nbOperation = Integer.parseInt(line);
+            line = br.readLine();
+            unitTime = Integer.parseInt(line);
+
+
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //int nbSimulation = Setters.setNbSimulation();
 
         ArrayList<Place> allPlaces = createPlacesList(nbPlace);
+        ArrayList<Place> bestPosition = new ArrayList<Place> (allPlaces);
+
 
         ArrayList<Operation> allOperations = createOperationsList(nbOperation);
 
         showOperations(allOperations);
 
+        allPlaces = insertTools(allPlaces, nbTool); // Ici on a une solution potentielle
+
+        // Debut du recuit simulé
+        double T = 1.0;
+        double alpha = 0.999;
+        double T_min = 0.001;
+
+        int oldTime = 0, newTime = 0;
+
+        while(T > T_min) {
+            for (int i = 0 ; i < 500; i ++)
+            {
+                //System.out.println("Boucle for, iteration no :" + i);
+                //System.out.println("Taille de la solution actuelle : " + allPlaces.size());
+                oldTime = startSimulation(allPlaces, allOperations,  unitTime, allOperations.get(allOperations.size()-1).getProcessTime());
+                ArrayList<Place> newSolution = closeSolution(allPlaces); // La nouvelle solution est une dérivée de l'ancienne
+                //System.out.println("Taille de la nouvelle solution, dérivee de l'ancienne :" + newSolution.size());
+
+
+                //System.out.println("Temps de la solution :" + oldTime);
+                //System.out.println("Taille de la nouvelle solution  v1 : " + allPlaces.size());
+
+                newTime = startSimulation(newSolution, allOperations, unitTime, allOperations.get(allOperations.size()-1).getProcessTime());
+                //System.out.println("Temps de la NOUVELLE solution :" + newTime);
+                //System.out.println("Taille de la nouvelle solution  v2 : " + newSolution.size());
+                //System.out.println( newTime + "/" + oldTime);
+                if (newTime <= oldTime)
+                {
+                    //System.out.println("Taille de la solution avant clear : " + newSolution.size());
+                    allPlaces.clear();
+                    //System.out.println("Taille de la solution avant addAll : " + newSolution.size());
+                    allPlaces.addAll(newSolution);
+                    //Stores the best ArrayList
+                    bestPosition = new ArrayList<Place>(newSolution);
+                    //System.out.println("Taille de la solution apres addAll : " + newSolution.size());
+                    //System.out.println("Current total time" + startSimulation(allPlaces, allOperations,  unitTime, newTime) );
+                }
+                else
+                {
+                    //System.out.println( newTime + "/" + oldTime);
+                    double acceptProb = acceptanceProbability(newTime, oldTime, T);
+                    double rand = Math.random();
+                    if (acceptProb > rand)
+                    {
+                        allPlaces.clear();
+                        allPlaces.addAll(newSolution);
+                        //System.out.println("Taille de la solution apres addAll : " + newSolution.size());
+                    }
+                    //System.out.println("Current total time" + startSimulation(allPlaces, allOperations,  unitTime, oldTime) );
+                }
+            }
+            if (startSimulation(allPlaces, allOperations,  unitTime, oldTime) < 90 ){System.out.println("\n Current total time" + startSimulation(allPlaces, allOperations,  unitTime, oldTime) +"\n" );}
+
+            System.out.println("Temperature :" + T + " / Acceptance Probabilty :" + acceptanceProbability(newTime, oldTime, T));
+            T = T * alpha;
+
+        }
+        for (Place allPlace : allPlaces) {
+            System.out.println(allPlace.getTool());
+        }
+        System.out.println("Temps total : " + PrintSimulation(allPlaces, allOperations,  unitTime, allOperations.get(allOperations.size()-1).getProcessTime()));
+        System.out.println("Temps total meilleur solution: " + PrintSimulation(bestPosition, allOperations,  unitTime, allOperations.get(allOperations.size()-1).getProcessTime()));
+
+    /*
         for (int i = 1; i <= nbSimulation; i++) {
 
             allPlaces = insertTools(allPlaces, nbTool);
 
-            int time = startSimulation(allPlaces, allOperations, unitTime);
+            int time = startSimulation(allPlaces, allOperations, unitTime, allOperations.get(allOperations.size()-1).getProcessTime());
+
+
 
             showPlaces(allPlaces);
             System.out.println("The total time for this simulation is: " + time);
 
         }
+        */
     }
 
-    public static ArrayList<Place> createPlacesList(int nbPlace) {
+    private static ArrayList<Place> createPlacesList(int nbPlace) {
 
         ArrayList<Place> allPlaces = new ArrayList<Place>();
 
@@ -42,7 +140,7 @@ public class RunToolsOptimizer {
         return allPlaces;
     }
 
-    public static ArrayList<Place> insertTools(ArrayList<Place> allPlaces, int nbTool) {
+    private static ArrayList<Place> insertTools(ArrayList<Place> allPlaces, int nbTool) {
 
         ArrayList<Integer> ToolList = createToolsList(nbTool);
 
@@ -53,14 +151,14 @@ public class RunToolsOptimizer {
         return allPlaces;
     }
 
-    public static ArrayList<Integer> createToolsList(int nbTool) {
+    private static ArrayList<Integer> createToolsList(int nbTool) {
 
         ArrayList<Integer> ToolList = new ArrayList<Integer>();
 
         for (int i = 0; i < nbTool; i++) {
-            int myRand = (int)(Math.random() * nbTool + 1);;
+            int myRand = (int)(Math.random() * nbTool + 1);
 
-            if (isInside(ToolList, myRand) == true)
+            if (isInside(ToolList, myRand))
                 i--;
             else ToolList.add(myRand);
         }
@@ -70,21 +168,22 @@ public class RunToolsOptimizer {
         return ToolList;
     }
 
-    public static boolean isInside(ArrayList<Integer> ToolList, int target) {
+    private static boolean isInside(ArrayList<Integer> ToolList, int target) {
 
         boolean isInside = false;
 
-        for(int i = 0; i < ToolList.size(); i++) {
-            if (ToolList.get(i) == target)
+        for (Integer aToolList : ToolList) {
+            if (aToolList == target)
                 isInside = true;
         }
 
         return isInside;
     }
 
-    public static ArrayList<Operation> createOperationsList(int nbOperation) {
+    private static ArrayList<Operation> createOperationsList(int nbOperation) {
 
         ArrayList<Operation> allTools = new ArrayList<Operation>();
+        /*
         Scanner sc = new Scanner(System.in);
 
         for (int i = 1; i <= nbOperation; i++) {
@@ -95,40 +194,54 @@ public class RunToolsOptimizer {
             int processTime = sc.nextInt();
             allTools.add(new Operation(i, toolNumber, processTime));
         }
+        */
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Dataset.txt"));
+            String line;
+            line = br.readLine();
+            line = br.readLine();
+            line = br.readLine();
+            line = br.readLine();
+
+            ArrayList<int []> workTime = new ArrayList<int[]>();
+            for(int i = 0; i < nbOperation; i ++) {
+                line = br.readLine();
+                String[] lines = line.split("	");
+                int[] monTab = {Integer.parseInt(lines[0]),Integer.parseInt(lines[1])};
+                allTools.add(new Operation(i, monTab[0],  monTab[1]));
+            }
+
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return(allTools);
     }
 
-    public static void showOperations(ArrayList<Operation> allOperations) {
+    private static void showOperations(ArrayList<Operation> allOperations) {
         System.out.println("\n--- Operations List ---\n Id  | Tool | Time");
 
-        for(int i = 0; i < allOperations.size(); i++) {
-            System.out.print("  "+allOperations.get(i).getId());
-            System.out.print("  |   "+allOperations.get(i).getToolNumber());
-            System.out.println("  |   "+allOperations.get(i).getProcessTime());
+        for (Operation allOperation : allOperations) {
+            System.out.print("  " + allOperation.getId());
+            System.out.print("  |   " + allOperation.getToolNumber());
+            System.out.println("  |   " + allOperation.getProcessTime());
         }
     }
 
-    public static void showPlaces(ArrayList<Place> allPlaces) {
-        System.out.println("\n--- Simulation Setup ---\n Id  | Tool");
 
-        for(int i = 0; i < allPlaces.size(); i++) {
-            System.out.print("  "+allPlaces.get(i).getId());
-            System.out.println("  |   "+allPlaces.get(i).getTool());
-        }
-    }
-
-    public static int startSimulation(ArrayList<Place> allPlaces, ArrayList<Operation> allOperations, int unitTime) {
+    private static int startSimulation(ArrayList<Place> allPlaces, ArrayList<Operation> allOperations, int unitTime, int lasttime) {
 
         int time = 0;
         int position = 0;
         int oldPosition = 0;
         int target = allOperations.get(0).getToolNumber();
 
-        for (int j=0; j < allPlaces.size(); j++) {
+        for (Place allPlace : allPlaces) {
 
-            if (allPlaces.get(j).getTool() == target) {
-                position = allPlaces.get(j).getId();
+            if (allPlace.getTool() == target) {
+                position = allPlace.getId();
                 oldPosition = position;
             }
         }
@@ -137,23 +250,86 @@ public class RunToolsOptimizer {
 
             target = allOperations.get(i).getToolNumber();
 
-            for (int j=0; j < allPlaces.size(); j++) {
-                if (allPlaces.get(j).getTool() == target) position = allPlaces.get(j).getId();
+            for (Place allPlace : allPlaces) {
+                if (allPlace.getTool() == target) position = allPlace.getId();
             }
 
-            if (i == 0 && allOperations.get(i).getProcessTime() <= unitTime) {
-                time = unitTime;
-            } else if (Math.abs((oldPosition-position)*unitTime) > allOperations.get(i).getProcessTime()) {
+            if (i == 0 ){
+                time = 0;
+            }
+            else if (Math.abs((oldPosition-position)*unitTime) > allOperations.get(i-1).getProcessTime()) {
                 time = time + (Math.abs((oldPosition-position)*unitTime));
             } else {
-                time = time + allOperations.get(i).getProcessTime();
+                time = time + allOperations.get(i-1).getProcessTime();
             }
-
-            System.out.println("\nboucle:"+i+"\nposition:"+position+"\noldPosition:"+oldPosition+"\ntarget:"+target+"\ntime:"+time);
-
+            //System.out.println("\nboucle:"+i+"\nposition:"+position+"\noldPosition:"+oldPosition+"\ntarget:"+target+"\ntime:"+time);
             oldPosition = position;
         }
 
+        time += lasttime;
         return time;
     }
+
+    private static int PrintSimulation(ArrayList<Place> allPlaces, ArrayList<Operation> allOperations, int unitTime, int lasttime) {
+
+        int time = 0;
+        int position = 0;
+        int oldPosition = 0;
+        int target = allOperations.get(0).getToolNumber();
+
+        for (Place allPlace1 : allPlaces) {
+
+            if (allPlace1.getTool() == target) {
+                position = allPlace1.getId();
+                oldPosition = position;
+            }
+        }
+
+        for (int i = 0; i < allOperations.size(); i++) {
+
+            target = allOperations.get(i).getToolNumber();
+
+            for (Place allPlace : allPlaces) {
+                if (allPlace.getTool() == target) position = allPlace.getId();
+            }
+
+            if (i == 0 ){
+                time = 0;
+            }
+            else if (allOperations.get(i-1).getProcessTime() < Math.abs((oldPosition-position)*unitTime) ){
+                time = time + Math.abs((oldPosition-position)*unitTime);
+            }
+            else {
+                time = time + allOperations.get(i-1).getProcessTime();
+            }
+            System.out.println("\nboucle:"+i+"\nposition:"+position+"\noldPosition:"+oldPosition+"\ntarget:"+target+"\ntime:"+time);
+            oldPosition = position;
+        }
+
+        time += lasttime;
+        return time;
+    }
+
+
+    private static ArrayList<Place> closeSolution(ArrayList<Place> solution){
+        //System.out.println("Solution.size = " + solution.size());
+        int swap1 = 1 + (int)(Math.random() * ((solution.size() - 1) ));
+        int swap2 = 1 + (int)(Math.random() * ((solution.size() - 1) ));
+        if (swap1 == swap2) return closeSolution(solution);
+        else
+        {
+            ArrayList<Place> newSolution = new ArrayList<Place>(solution);
+
+            int temp = newSolution.get(swap1).getTool();
+            newSolution.get(swap1).setTool(newSolution.get(swap2).getTool());
+            newSolution.get(swap2).setTool(temp);
+
+            return newSolution;
+        }
+    }
+
+    private static double acceptanceProbability(int newSolutionTime, int oldSolutionTime, double T){
+        return 1 / (1 + Math.exp( ( ( (double)(newSolutionTime) - (double)(oldSolutionTime) )/T ) ) );
+    }
+
 }
